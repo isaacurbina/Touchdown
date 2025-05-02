@@ -17,7 +17,7 @@ struct ContentView: View {
 	
 	// MARK: - body
 	
-    var body: some View {
+	var body: some View {
 		ZStack {
 			VStack(spacing: 0) {
 				NavigationBarView()
@@ -33,6 +33,8 @@ struct ContentView: View {
 							.padding(.vertical, 20)
 							.frame(height: UIScreen.main.bounds.width / 1.475)
 						
+						CategoryGridView()
+						
 						FooterView()
 							.padding(.horizontal)
 					} // VStack
@@ -42,7 +44,7 @@ struct ContentView: View {
 			.background(colorBackground.ignoresSafeArea(.all, edges: .all))
 		} // ZStack
 		.ignoresSafeArea(.all, edges: .top)
-    }
+	}
 }
 
 
