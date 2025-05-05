@@ -12,7 +12,7 @@ struct HeaderDetailView: View {
 	
 	// MARK: - properties
 	
-	let product: Product
+	@EnvironmentObject var shop: Shop
 	
 	
 	// MARK: - body
@@ -21,9 +21,13 @@ struct HeaderDetailView: View {
 		VStack(alignment: .leading, spacing: 6) {
 			Text("Protective Gear")
 			
-			Text(product.name)
-				.font(.largeTitle)
-				.fontWeight(.black)
+			if let product = shop.selectedProduct {
+				Text(product.name)
+					.font(.largeTitle)
+					.fontWeight(.black)
+			} else {
+				EmptyView()
+			}
 		} // VStack
 		.foregroundColor(.white)
 	}
@@ -34,7 +38,8 @@ struct HeaderDetailView: View {
 
 struct HeaderDetailView_Previews: PreviewProvider {
 	static var previews: some View {
-		HeaderDetailView(product: products[0])
+		HeaderDetailView()
+			.environmentObject(Shop())
 			.previewLayout(.sizeThatFits)
 			.padding()
 			.background(.gray)

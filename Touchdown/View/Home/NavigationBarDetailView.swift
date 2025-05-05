@@ -12,14 +12,20 @@ struct NavigationBarDetailView: View {
 	
 	// MARK: - properties
 	
-	
+	@EnvironmentObject var shop: Shop
 	
 	
 	// MARK: - body
 	
 	var body: some View {
 		HStack {
-			Button(action: {}, label: {
+			Button(action: {
+				feedback.impactOccurred()
+				withAnimation(.easeIn) {
+					shop.selectedProduct = nil
+					shop.showingProduct = false
+				}
+			}, label: {
 				Image(systemName: "chevron.left")
 					.font(.title)
 					.foregroundColor(.white)
@@ -31,7 +37,7 @@ struct NavigationBarDetailView: View {
 				Image(systemName: "cart")
 					.font(.title)
 					.foregroundColor(.white)
-			})			
+			})
 		} // HStack
 	}
 }
@@ -42,6 +48,7 @@ struct NavigationBarDetailView: View {
 struct NavigationBarDetailView_Previews: PreviewProvider {
 	static var previews: some View {
 		NavigationBarDetailView()
+			.environmentObject(Shop())
 			.previewLayout(.sizeThatFits)
 			.padding()
 			.background(.gray)
