@@ -21,6 +21,7 @@ struct QuantityFavouriteDetailView: View {
 		HStack(alignment: .center, spacing: 6) {
 			Button(action: {
 				if counter > 0 {
+					feedback.impactOccurred()
 					counter -= 1
 				}
 			}) {
@@ -33,6 +34,7 @@ struct QuantityFavouriteDetailView: View {
 			
 			Button(action: {
 				if counter < 100 {
+					feedback.impactOccurred()
 					counter += 1
 				}
 			}) {
@@ -41,7 +43,9 @@ struct QuantityFavouriteDetailView: View {
 			
 			Spacer()
 			
-			Button(action: {}) {
+			Button(action: {
+				feedback.impactOccurred()
+			}) {
 				Image(systemName: "heart.circle")
 					.foregroundColor(.pink)
 			}

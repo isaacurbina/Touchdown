@@ -12,13 +12,15 @@ struct AddToCartDetailView: View {
 	
 	// MARK: - properties
 	
-	let product: Product
+	@EnvironmentObject var shop: Shop
 	
 	
 	// MARK: - body
 	
 	var body: some View {
-		Button(action: {}) {
+		Button(action: {
+			feedback.impactOccurred()
+		}) {
 			Spacer()
 			Text("Add to cart".uppercased())
 				.font(.system(.title2, design: .rounded))
@@ -28,11 +30,17 @@ struct AddToCartDetailView: View {
 		}
 		.padding(15)
 		.background(
-			Color(
-				red: product.red,
-				green: product.green,
-				blue: product.blue
-			)
+			Group {
+				if let product = shop.selectedProduct {
+					Color(
+						red: product.red,
+						green: product.green,
+						blue: product.blue
+					)
+				} else {
+					colorBackground
+				}
+			}
 		)
 		.clipShape(Capsule())
 	}
@@ -43,8 +51,9 @@ struct AddToCartDetailView: View {
 
 struct AddToCartDetailView_Previews: PreviewProvider {
 	static var previews: some View {
-		AddToCartDetailView(product: products[0])
+		AddToCartDetailView()
 			.previewLayout(.sizeThatFits)
 			.padding()
+			.environmentObject(Shop())
 	}
 }
